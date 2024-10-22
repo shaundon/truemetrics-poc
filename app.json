@@ -13,20 +13,33 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.shaundonnelly.TrueMetricsTest"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      },
+      "package": "com.shaundonnelly.TrueMetricsTest"
     },
     "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 24,
+            "extraMavenRepos": [
+              {
+                "url": "https://github.com/TRUE-Metrics-io/truemetrics_android_SDK_p_maven/raw/main"
+              }
+            ]
+          },
+          "ios": {
+            "deploymentTarget": "17.0"
+          }
+        }
+      ],
       "expo-router"
     ],
     "experiments": {

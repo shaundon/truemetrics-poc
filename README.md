@@ -1,6 +1,15 @@
-# Welcome to your Expo app 👋
+# TrueMetrics Crash PoC
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+
+The only modifications it has from the vanilla project are:
+
+* A native module has been added (`/modules/truemetrics`). This itself is a vanilla native module, it doesn't contain any custom code.
+* In `app.json`, the `expo-build-properties` plugin has been used to give the Android project access to the correct Maven repo that has the TrueMetrics SDK.
+
+## Prerequisites
+
+You need NodeJS 20.
 
 ## Get started
 
@@ -10,41 +19,12 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Run the app on Android
 
    ```bash
-    npx expo start
+    npm run android
    ```
 
-In the output, you'll find options to open the app in a
+## See the error
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+The app should run fine to start with. However, if you go to the gradle settings for the truemetrics module (`modules/truemetrics/android/build.gradle`) and uncomment out the block at the bottom to include the TrueMetrics SDK, then re-run the app on Android, it should crash on launch.
