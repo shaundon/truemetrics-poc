@@ -1,7 +1,12 @@
-export type ChangeEventPayload = {
-  value: string;
-};
+export type SDKStateChangedEventPayload = {
+  state: string
+}
 
-export type TruemetricsViewProps = {
-  name: string;
-};
+export type SDKErrorEventPayload = {
+  errorCode: string
+  message: string
+}
+
+export type SDKPermissionsChangedEventPayload = {
+  permissions: string[]
+}

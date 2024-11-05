@@ -1,25 +1,62 @@
-import { NativeModulesProxy, EventEmitter, Subscription } from 'expo-modules-core';
+import {
+  NativeModulesProxy,
+  EventEmitter,
+  Subscription,
+} from "expo-modules-core"
 
-// Import the native module. On web, it will be resolved to Truemetrics.web.ts
-// and on native platforms to Truemetrics.ts
-import TruemetricsModule from './src/TruemetricsModule';
-import { ChangeEventPayload, TruemetricsViewProps } from './src/Truemetrics.types';
+import {
+  SDKStateChangedEventPayload,
+  SDKErrorEventPayload,
+  SDKPermissionsChangedEventPayload,
+} from "./src/TrueMetrics.types"
+import TrueMetricsModule from "./src/TrueMetricsModule"
 
-// Get the native constant value.
-export const PI = TruemetricsModule.PI;
+export function initializeSdk(apiKey: string): void {
+  return TrueMetricsModule.initializeSdk(apiKey)
+}
 
-export function hello(): string {
-  return TruemetricsModule.hello();
+export function startRecording(): void {
+  return TrueMetricsModule.startRecording()
+}
+
+export function stopRecording(): void {
+  return TrueMetricsModule.stopRecording()
 }
 
 export async function setValueAsync(value: string) {
-  return await TruemetricsModule.setValueAsync(value);
+  return await TrueMetricsModule.setValueAsync(value)
 }
 
-const emitter = new EventEmitter(TruemetricsModule ?? NativeModulesProxy.Truemetrics);
+const emitter = new EventEmitter(
+  TrueMetricsModule ?? NativeModulesProxy.TrueMetrics,
+)
 
-export function addChangeListener(listener: (event: ChangeEventPayload) => void): Subscription {
-  return emitter.addListener<ChangeEventPayload>('onChange', listener);
+export function addSDKStateChangedListener(
+  listener: (event: SDKStateChangedEventPayload) => void,
+): Subscription {
+  return emitter.addListener<SDKStateChangedEventPayload>(
+    "sdkStateChanged",
+    listener,
+  )
 }
 
-export { TruemetricsViewProps, ChangeEventPayload };
+export function addSDKErrorListener(
+  listener: (event: SDKErrorEventPayload) => void,
+): Subscription {
+  return emitter.addListener<SDKErrorEventPayload>("sdkError", listener)
+}
+
+export function addSDKPermissionsChangedListener(
+  listener: (event: SDKPermissionsChangedEventPayload) => void,
+): Subscription {
+  return emitter.addListener<SDKPermissionsChangedEventPayload>(
+    "sdkPermissions",
+    listener,
+  )
+}
+
+export {
+  SDKStateChangedEventPayload,
+  SDKErrorEventPayload,
+  SDKPermissionsChangedEventPayload,
+}
