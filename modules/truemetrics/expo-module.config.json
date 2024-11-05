@@ -4,6 +4,6 @@
     "modules": []
   },
   "android": {
-    "modules": ["expo.modules.truemetrics.TruemetricsModule"]
+    "modules": ["expo.modules.truemetrics.TrueMetricsModule"]
   }
 }

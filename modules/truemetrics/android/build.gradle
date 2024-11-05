@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 group = 'expo.modules.truemetrics'
-version = '0.6.0'
+version = '0.1.0'
 
 def expoModulesCorePlugin = new File(project(":expo-modules-core").projectDir.absolutePath, "ExpoModulesCorePlugin.gradle")
 apply from: expoModulesCorePlugin
@@ -35,16 +35,13 @@ android {
   namespace "expo.modules.truemetrics"
   defaultConfig {
     versionCode 1
-    versionName "0.6.0"
+    versionName "0.1.0"
   }
   lintOptions {
     abortOnError false
   }
 }
 
-
-// Uncomment the block below to see the error where the app crashes on startup.
-
-// dependencies {
-//   implementation 'io.truemetrics:truemetricssdk:1.0.20'
-// }
+dependencies {
+    implementation 'io.truemetrics:truemetricssdk:1.0.20'
+}

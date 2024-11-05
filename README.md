@@ -4,8 +4,9 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 The only modifications it has from the vanilla project are:
 
-* A native module has been added (`/modules/truemetrics`). This itself is a vanilla native module, it doesn't contain any custom code.
+* A native module has been added (`/modules/truemetrics`)
 * In `app.json`, the `expo-build-properties` plugin has been used to give the Android project access to the correct Maven repo that has the TrueMetrics SDK.
+* In `app/index.tsx`, the UI allows you to call methods on the TrueMetrics SDK.
 
 ## Prerequisites
 
@@ -24,6 +25,18 @@ You need NodeJS 20.
    ```bash
     npm run android
    ```
+
+3. Start streaming Android logs
+
+In a separate tab:
+
+```bash
+   adb logcat | grep -i TrueMetrics
+```
+
+4. In the app, press "Initialize SDK" and see the errors
+
+![SDK Errors screenshot](./sdk-error.png)
 
 ## See the error
 
