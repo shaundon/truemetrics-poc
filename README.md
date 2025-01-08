@@ -20,13 +20,15 @@ You need NodeJS 20.
    npm install
    ```
 
-2. Run the app on Android
+2. Make a copy of `config.example.json` and name it `config.json`. Then enter the correct API key.
+
+3. Run the app on Android
 
    ```bash
     npm run android
    ```
 
-3. Start streaming Android logs
+4. Start streaming Android logs
 
 In a separate tab:
 

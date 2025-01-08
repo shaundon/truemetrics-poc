@@ -1,9 +1,0 @@
-{
-  "platforms": ["android"],
-  "ios": {
-    "modules": []
-  },
-  "android": {
-    "modules": ["expo.modules.truemetrics.TrueMetricsModule"]
-  }
-}
