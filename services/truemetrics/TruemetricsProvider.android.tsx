@@ -11,6 +11,19 @@ interface Props {
   children: React.ReactNode
 }
 
+
+/*
+
+This file has been mostly commented out, to nail down the point where
+Truemetrics crashes.
+
+In the initializeIfNeeded function, calling ExpoTruemetricsSdk.isInitialized()
+causes the crash.
+
+Other calls to the SDK may also cause crashes, but we can't test because 
+the SDK is not initialized.
+*/
+
 const apiKey = process.env.EXPO_PUBLIC_TRUEMETRICS_API_KEY
 const TruemetricsProvider = (props: Props) => {
   const { children } = props
@@ -21,20 +34,48 @@ const TruemetricsProvider = (props: Props) => {
       return
     }
 
-    const isAlreadyRecording = ExpoTruemetricsSdk.isRecordingInProgress()
-    if (isAlreadyRecording) {
-      return
-    }
+    // const isAlreadyRecording = ExpoTruemetricsSdk.isRecordingInProgress()
+    // if (isAlreadyRecording) {
+    //   return
+    // }
 
-    ExpoTruemetricsSdk.startRecording()
+    // ExpoTruemetricsSdk.startRecording()
 
-    const recordingStarted = ExpoTruemetricsSdk.isRecordingInProgress()
-    if (recordingStarted) {
-      console.log("Truemetrics: started recording")
-    } else {
-      console.log("Truemetrics: failed to start recording")
-    }
+    // const recordingStarted = ExpoTruemetricsSdk.isRecordingInProgress()
+    // if (recordingStarted) {
+    //   console.log("Truemetrics: started recording")
+    // } else {
+    //   console.log("Truemetrics: failed to start recording")
+    // }
   }
+
+  const initializeIfNeeded = useCallback(() => {
+
+    // This is the line that causes the crash.
+    const alreadyInitialized = ExpoTruemetricsSdk.isInitialized()
+
+
+    if (alreadyInitialized) {
+      return true
+    }
+
+    // if (!apiKey) {
+    //   console.log("Truemetrics: no API key provided")
+    //   return false
+    // }
+
+    // ExpoTruemetricsSdk.initialize({
+    //   apiKey,
+    //   debug: true,
+    // })
+    // const didInitialize = ExpoTruemetricsSdk.isInitialized()
+    // if (didInitialize) {
+    //   console.log("Truemetrics: initialized")
+    // } else {
+    //   console.log("Truemetrics: failed to initialize")
+    // }
+    // return didInitialize
+  }, [])
 
   const stopRecording = () => {
     // ExpoTruemetricsSdk.stopRecording()
@@ -45,30 +86,6 @@ const TruemetricsProvider = (props: Props) => {
     //   console.log("Truemetrics: stopped recording")
     // }
   }
-
-  const initializeIfNeeded = useCallback(() => {
-    const alreadyInitialized = ExpoTruemetricsSdk.isInitialized()
-    if (alreadyInitialized) {
-      return true
-    }
-
-    if (!apiKey) {
-      console.log("Truemetrics: no API key provided")
-      return false
-    }
-
-    ExpoTruemetricsSdk.initialize({
-      apiKey,
-      debug: true,
-    })
-    const didInitialize = ExpoTruemetricsSdk.isInitialized()
-    if (didInitialize) {
-      console.log("Truemetrics: initialized")
-    } else {
-      console.log("Truemetrics: failed to initialize")
-    }
-    return didInitialize
-  }, [])
 
   const deinitializeIfNeeded = useCallback(() => {
     // const alreadyInitialized = ExpoTruemetricsSdk.isInitialized()
