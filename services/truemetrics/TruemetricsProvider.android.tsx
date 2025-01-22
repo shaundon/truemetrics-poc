@@ -12,7 +12,6 @@ interface Props {
 }
 
 const apiKey = process.env.EXPO_PUBLIC_TRUEMETRICS_API_KEY
-console.log("apiKey", apiKey)
 const TruemetricsProvider = (props: Props) => {
   const { children } = props
 
@@ -38,13 +37,13 @@ const TruemetricsProvider = (props: Props) => {
   }
 
   const stopRecording = () => {
-    ExpoTruemetricsSdk.stopRecording()
-    const recordingInProgress = ExpoTruemetricsSdk.isRecordingInProgress()
-    if (recordingInProgress) {
-      console.log("Truemetrics: failed to stop recording")
-    } else {
-      console.log("Truemetrics: stopped recording")
-    }
+    // ExpoTruemetricsSdk.stopRecording()
+    // const recordingInProgress = ExpoTruemetricsSdk.isRecordingInProgress()
+    // if (recordingInProgress) {
+    //   console.log("Truemetrics: failed to stop recording")
+    // } else {
+    //   console.log("Truemetrics: stopped recording")
+    // }
   }
 
   const initializeIfNeeded = useCallback(() => {
@@ -72,27 +71,27 @@ const TruemetricsProvider = (props: Props) => {
   }, [])
 
   const deinitializeIfNeeded = useCallback(() => {
-    const alreadyInitialized = ExpoTruemetricsSdk.isInitialized()
-    if (!alreadyInitialized) {
-      return
-    }
+    // const alreadyInitialized = ExpoTruemetricsSdk.isInitialized()
+    // if (!alreadyInitialized) {
+    //   return
+    // }
 
-    ExpoTruemetricsSdk.deinitialize()
-    console.log("Truemetrics: deinitialized")
+    // ExpoTruemetricsSdk.deinitialize()
+    // console.log("Truemetrics: deinitialized")
   }, [])
 
   const logStopEvent = (
     eventType: StopEventType,
   ) => {
-    ExpoTruemetricsSdk.logMetadata({
-      stop_id: "123",
-      stop_type: "collection",
-      vehicle_id: "456",
-      event_type: eventType,
-      address: "12 Grimmauld Place, London, UK",
-      routing_latitude: "51.5235635",
-      routing_longitude: "-0.1575862",
-    })
+    // ExpoTruemetricsSdk.logMetadata({
+    //   stop_id: "123",
+    //   stop_type: "collection",
+    //   vehicle_id: "456",
+    //   event_type: eventType,
+    //   address: "12 Grimmauld Place, London, UK",
+    //   routing_latitude: "51.5235635",
+    //   routing_longitude: "-0.1575862",
+    // })
   }
 
   const value: TruemetricsContextState = {
