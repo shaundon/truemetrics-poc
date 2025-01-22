@@ -1,12 +1,4 @@
-# TrueMetrics Crash PoC
-
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
-
-The only modifications it has from the vanilla project are:
-
-* A native module has been added (`/modules/truemetrics`)
-* In `app.json`, the `expo-build-properties` plugin has been used to give the Android project access to the correct Maven repo that has the TrueMetrics SDK.
-* In `app/index.tsx`, the UI allows you to call methods on the TrueMetrics SDK.
+# TrueMetrics PoC
 
 ## Prerequisites
 
@@ -20,24 +12,18 @@ You need NodeJS 20.
    npm install
    ```
 
-2. Run the app on Android
+2. Make a copy of `.env.template` and name it `.env`. Then enter the correct API key.
+
+3. Run the app on Android
 
    ```bash
     npm run android
    ```
 
-3. Start streaming Android logs
+4. Start streaming Android logs
 
 In a separate tab:
 
 ```bash
    adb logcat | grep -i TrueMetrics
 ```
-
-4. In the app, press "Initialize SDK" and see the errors
-
-![SDK Errors screenshot](./sdk-error.png)
-
-## See the error
-
-The app should run fine to start with. However, if you go to the gradle settings for the truemetrics module (`modules/truemetrics/android/build.gradle`) and uncomment out the block at the bottom to include the TrueMetrics SDK, then re-run the app on Android, it should crash on launch.

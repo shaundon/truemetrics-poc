@@ -1,39 +1,25 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { useTruemetrics } from "@/services/truemetrics/TruemetricsProvider.android";
+import { Button, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 
-import * as TrueMetrics from "../modules/truemetrics";
 
-export default function Index() {
-
-  const initializeSdk = () => {
-    TrueMetrics.initializeSdk("1234567890");
-  }
-
-  const startRecording = () => {
-    TrueMetrics.startRecording();
-  }
-
-  const stopRecording = () => {
-    TrueMetrics.stopRecording();
-  }
-
+const Index = () => {
+  const { startRecording, stopRecording, logStopEvent } = useTruemetrics()
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <TouchableOpacity onPress={initializeSdk}>
-        <Text>Initialize SDK</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={startRecording}>
-        <Text>Start Recording</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={stopRecording}>
-        <Text>Stop Recording</Text>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.container}>
+        <Button title="Start Recording" onPress={startRecording} />
+        <Button title="Stop Recording" onPress={stopRecording} />
+        <Button title="Log Stop Event" onPress={() => logStopEvent("parked_for_delivery")} />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+
+export default Index;
